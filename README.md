@@ -1,5 +1,5 @@
 # Ex1_OOP
-#####An Off-line Elevator Algorithm
+####An Off-line Elevator Algorithm
 
 ### About the project.
 Given a `building`, with a maximum floor and a minimum floor, and with smart elevators (ie: [https://www.designingbuildings.co.uk/wiki/Smart_elevators]())
