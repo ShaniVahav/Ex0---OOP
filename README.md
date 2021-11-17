@@ -6,3 +6,6 @@ off-line elevator algorithm
 2. Elevator System Design - https://youtu.be/siqiJAJWUVg?t=1236
 3.  The Hidden Science of Elevators - -https://www.popularmechanics.com/technology/infrastructure/a20986/the-hidden
 /science-of-elevators
+
+
+## Pseudo Code
