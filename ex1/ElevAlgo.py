@@ -61,11 +61,12 @@ def SortbySrc(Callist,elvelist):
         minindex = FoundMinSrc(Callist)
         ans.append(Callist[minindex])
         Callist.remove(Callist[minindex])
-    if(len(Callist) < 200 or len(elvelist) <= 2  ):
+    if len(elvelist) == 2 or len(Callist) < 200 :
+         return ans
+    else :
+        ans = DivideToUpCallAndDownCalls(ans)
         return ans
-    #else :
-        #ans = DivideToUpCallAndDownCalls(ans)
-    return ans
+
 
 
 
