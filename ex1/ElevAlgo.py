@@ -26,7 +26,33 @@ def FoundMinSrc(Callist) :
             Index = i
     return  Index
 
+def FoundMinAbs(Callist) :
+    minimumdis = 100000
+    Index = 0
+    for i in range(0,len(Callist)):
+      distance = math.fabs((int)(Callist[i]._src) - (int)(Callist[i]._dest))
+      if distance< (minimumdis):
+            minimumdis = distance
+            Index = i
+    return  Index
 
+
+
+
+
+
+
+def Sortbyabc(Callist,elvelist):
+    ans = []
+    for i in range(0, len(Callist)):
+        minindex = FoundMinAbs(Callist)
+        ans.append(Callist[minindex])
+        Callist.remove(Callist[minindex])
+    if(len(Callist) < 200 or len(elvelist) <= 2  ):
+        return ans
+    #else :
+     #   ans = DivideToUpCallAndDownCalls(ans)
+    return ans
 
 
 def SortbySrc(Callist,elvelist):
@@ -37,8 +63,8 @@ def SortbySrc(Callist,elvelist):
         Callist.remove(Callist[minindex])
     if(len(Callist) < 200 or len(elvelist) <= 2  ):
         return ans
-    else :
-        ans = DivideToUpCallAndDownCalls(ans)
+    #else :
+        #ans = DivideToUpCallAndDownCalls(ans)
     return ans
 
 
@@ -82,6 +108,7 @@ def DivisionIntoSections(elevList, callList):
                     temp.append(call)  # todo reputation ?
 
         temp = SortbySrc(temp,elevList)
+        temp = Sortbyabc(temp,elevList)
          #sortedBySrctemp = SortbySrc(temp)
         list_Of_areaslists.append(temp)
     for list in list_Of_areaslists :
