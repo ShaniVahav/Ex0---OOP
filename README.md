@@ -18,5 +18,30 @@ In our project we used several sources, some of which are:
 /science-of-elevators
 
 ## Pseudo Code.
+    building <- input(json)
+    calls <- input(csv)
+    
+    listOf_Elevators <- A list from building.json file
+    listOf_Calls <- A list from calls.csv file
+    
+    listOf_Elevators.sort(bySpeed)  # The first elevator ia the slowest and the last is the fastest 
+    listOf_Calls.sort(bySrc then by_absoluteValue(src-dest) then by_upCalls)
+    
+    for all the elevator[i] in listOf_Elevators:
+        sumSpeed += elevator[i].speed  # The sum of the speeds of all the elevators
+        
+    ratio <- ((number of calls) / sumSpeed) # Number of calls given to an elevator, per speed
+    
+    for all the elevator[i] in listOf_Elevators:
+        # The number of calls the current elevator will receive
+        numberOfCalls <- elevator[i].speed*ratio 
+        
+        # Match for elevator[i] _numberOfCalls_ call from listOf_Calls, in order
+        for i in range(0, numberOfCalls):
+            for call in ListOf_Calls who doesn't match yet:
+                call.matchedTo(elevator[i])
+                
+    listOf_Calls --> output.csv
 
 ## Class diagram.
+    
