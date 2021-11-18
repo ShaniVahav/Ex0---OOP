@@ -20,3 +20,4 @@ In our project we used several sources, some of which are:
 ## Pseudo Code.
 
 ## Class diagram.
+![image](https://user-images.githubusercontent.com/92265738/142400751-f390dcf2-1d10-4920-8487-da49a4444246.png)
