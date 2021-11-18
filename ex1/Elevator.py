@@ -12,10 +12,11 @@ class Elevator:
         self._openTime = _openTime
         self._startTime = _startTime
         self._stopTime = _stopTime
+        # self._listOfCalls = []
 
     def toString(self):
         ans = "index = " + str(self._index) + ", id = " + str(self._id) + ", speed = " + str(
             self._speed) + ", closeTime = " + str(self._closeTime)
         ans += ", openTime = " + str(self._openTime) + ", startTime = " + str(self._startTime)
-        ans += ", stopTime = " + str(self._stopTime) + ", callList = " + str(self._listOfCalls)
+        ans += ", stopTime = " + str(self._stopTime) + ", callList = "
         return ans

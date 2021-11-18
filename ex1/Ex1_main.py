@@ -1,11 +1,29 @@
-import Create
-from ex1 import ElevAlgo
+import csv
 
-strBuilding = "B5.json"  # input()   # todo
-strCall = "Calls_b.csv"  # input()       # todo
+from ex1 import ElevAlgo, Create
+from ex1.ElevAlgo import AssignRestCalls_to_AllElevators
+
+strBuilding = "B4.json"
+strCall = "Calls_c.csv"
 
 elevList = Create.elevator(strBuilding)
 callList = Create.call(strCall)
+
+
+"""
+ll = SortbySrc(callList)
+print(len(ll))
+print("sssss")
+for call in ll :
+    print(call.toString())
+"""
+
+
+
+
+
+
+
 
 if len(elevList) == 1:
     callList_ans = []
@@ -19,18 +37,22 @@ else:
        Half of the number of lifts will respond to calls according to
        the sections designated for them, this function sorts sections.
        Each sublist is a section.
-       """
-    list_Of_areaslists = ElevAlgo.DivisionIntoSections(elevList, callList)
+    """
 
-    # Merge the lists into one
-    mergeList = ElevAlgo.mergeTo_one(list_Of_areaslists)
+    list_Of_areaslistsFinal = ElevAlgo.DivisionIntoSections(elevList, callList)
 
-    # Distribution the calls to slow lifts
-    callList = ElevAlgo.AssignCalls_FromEachSection_to_SlowElevators(list_Of_areaslists, elevList, callList)
+    callList_ans = AssignRestCalls_to_AllElevators( list_Of_areaslistsFinal, elevList, callList)
+    Counter1 = 0
+    Counter2 = 0
+    for call in callList_ans :
+        if call._elevIndex == 0 :
+            Counter1 = Counter1 +1
+        else:
+            Counter2 = Counter2 +1
+    print(Counter2)
+    print(Counter1)
 
-    # Distribution the calls to flow lifts
-    callList_ans = ElevAlgo.AssignRestCalls_to_FastElevators(list_Of_areaslists, elevList, callList)
 
-    callList_ans.sort(key=lambda Call: Call._id)
 
 ElevAlgo.callsToCsv(callList_ans)
+
