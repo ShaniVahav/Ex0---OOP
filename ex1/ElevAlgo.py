@@ -8,80 +8,51 @@ callList_ans = []
 def DivideToUpCallAndDownCalls(Callist):
     downCalls = []
     UpCalls = []
-    for call in Callist :
-        if(call._src < call._dest) :
+    for call in Callist:
+        if (call._src < call._dest):
             downCalls.append(call)
-        else :
+        else:
             UpCalls.append(call)
     return UpCalls + downCalls
-            
 
 
-def FoundMinSrc(Callist) :
+def FoundMinSrc(Callist):
     minimumSrc = 100000
     Index = 0
-    for i in range(0,len(Callist)):
-        if (int)(Callist[i]._src)< (minimumSrc):
+    for i in range(0, len(Callist)):
+        if (int)(Callist[i]._src) < (minimumSrc):
             minimumSrc = (int)(Callist[i]._src)
             Index = i
-    return  Index
+    return Index
 
-def FoundMinAbs(Callist) :
+
+def FoundMinAbs(Callist):
     minimumdis = 100000
     Index = 0
-    for i in range(0,len(Callist)):
-      distance = math.fabs((int)(Callist[i]._src) - (int)(Callist[i]._dest))
-      if distance< (minimumdis):
+    for i in range(0, len(Callist)):
+        distance = math.fabs((int)(Callist[i]._src) - (int)(Callist[i]._dest))
+        if distance < (minimumdis):
             minimumdis = distance
             Index = i
-    return  Index
+    return Index
 
 
-
-
-
-
-
-def Sortbyabc(Callist,elvelist):
+def Sortbyabc(Callist, elvelist):
     ans = []
     for i in range(0, len(Callist)):
         minindex = FoundMinAbs(Callist)
         ans.append(Callist[minindex])
         Callist.remove(Callist[minindex])
-    if(len(Callist) < 200 or len(elvelist) <= 2  ):
-        return ans
-    #else :
-     #   ans = DivideToUpCallAndDownCalls(ans)
     return ans
 
 
-def SortbySrc(Callist,elvelist):
+def SortbySrc(Callist, elvelist):
     ans = []
     for i in range(0, len(Callist)):
         minindex = FoundMinSrc(Callist)
         ans.append(Callist[minindex])
         Callist.remove(Callist[minindex])
-    if len(elvelist) == 2 or len(Callist) < 200 :
-         return ans
-    else :
-        ans = DivideToUpCallAndDownCalls(ans)
-        return ans
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return ans
 
 
 def DivisionIntoSections(elevList, callList):
@@ -93,9 +64,9 @@ def DivisionIntoSections(elevList, callList):
     elevList.sort(key=lambda Elevator: Elevator._speed)  # sort the elev by speed
     numberOfElev = len(elevList)
     numberOfAreas = numberOfElev
-    if(numberOfElev > 2 ):
-        areaSize = math.ceil(numberOfFloors / math.ceil(numberOfAreas/4))
-    else :
+    if (numberOfElev > 2):
+        areaSize = math.ceil(numberOfFloors / math.ceil(numberOfAreas / 4))
+    else:
         areaSize = math.ceil(numberOfFloors / math.ceil(numberOfAreas))
     for i in range(0, numberOfAreas):
         temp = []
@@ -107,21 +78,14 @@ def DivisionIntoSections(elevList, callList):
                 if not call.isInListOfList:
                     call.isInListOfList = True
                     temp.append(call)  # todo reputation ?
-
-        temp = SortbySrc(temp,elevList)
-        temp = Sortbyabc(temp,elevList)
-         #sortedBySrctemp = SortbySrc(temp)
+        temp = Sortbyabc(temp, elevList)
+        temp = DivideToUpCallAndDownCalls(temp)
+        temp = SortbySrc(temp, elevList)
         list_Of_areaslists.append(temp)
-    for list in list_Of_areaslists :
-           for c in list :
-               list_Of_areaslistsFinal.append(c)
+    for list in list_Of_areaslists:
+        for c in list:
+            list_Of_areaslistsFinal.append(c)
     return list_Of_areaslistsFinal
-
-
-
-
-
-
 
 
 def AssignRestCalls_to_AllElevators(finalCallList, elevList, callList):
@@ -136,20 +100,19 @@ def AssignRestCalls_to_AllElevators(finalCallList, elevList, callList):
     ratio = (len(finalCallList)) / sum  # from the rest of calls
     print(len(finalCallList))
 
-
     dex = 0
-    for index in range(0, len(elevList)):                      # from the rest of the elevator
+    for index in range(0, len(elevList)):  # from the rest of the elevator
         currentelev = elevList[index]
-        for i in range(dex ,dex+ int(currentelev._speed * ratio)):  # number of calls to one elevator
+        for i in range(dex, dex + int(currentelev._speed * ratio)):  # number of calls to one elevator
             call = finalCallList[i]
             call._elevIndex = currentelev._index
             if not call.isMatched:
                 call.isMatched = True
                 callList_ans.append(call)
-        dex = dex +int(currentelev._speed * ratio)
-    fastestElev_index = elevList[len(elevList) -1]._index
+        dex = dex + int(currentelev._speed * ratio)
+    fastestElev_index = elevList[len(elevList) - 1]._index
     for call in finalCallList:
-        if not call.isMatched :
+        if not call.isMatched:
             call._elevIndex = fastestElev_index
             callList_ans.append(call)
     return callList_ans
@@ -162,4 +125,4 @@ def callsToCsv(arrayofCalls):
         newArrayofCalls.append(i.__dict__.values())
     with open(filename, 'w', newline="") as file:
         csvWriter = csv.writer(file)
-        csvWriter.writerows(newArrayofCalls)
+        csvWriter.writerows(newArrayo
