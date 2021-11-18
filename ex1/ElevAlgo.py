@@ -29,13 +29,16 @@ def FoundMinSrc(Callist) :
 
 
 
-def SortbySrc(Callist):
+def SortbySrc(Callist,elvelist):
     ans = []
     for i in range(0, len(Callist)):
         minindex = FoundMinSrc(Callist)
         ans.append(Callist[minindex])
         Callist.remove(Callist[minindex])
-    ans = DivideToUpCallAndDownCalls(ans)
+    if(len(Callist) < 200 or len(elvelist) <= 2  ):
+        return ans
+    else :
+        ans = DivideToUpCallAndDownCalls(ans)
     return ans
 
 
@@ -63,8 +66,10 @@ def DivisionIntoSections(elevList, callList):
     elevList.sort(key=lambda Elevator: Elevator._speed)  # sort the elev by speed
     numberOfElev = len(elevList)
     numberOfAreas = numberOfElev
-    areaSize = math.ceil(numberOfFloors / math.ceil(numberOfAreas/2))
-
+    if(numberOfElev > 2 ):
+        areaSize = math.ceil(numberOfFloors / math.ceil(numberOfAreas/4))
+    else :
+        areaSize = math.ceil(numberOfFloors / math.ceil(numberOfAreas))
     for i in range(0, numberOfAreas):
         temp = []
         for oneCall in range(0, len(callList)):
@@ -76,7 +81,7 @@ def DivisionIntoSections(elevList, callList):
                     call.isInListOfList = True
                     temp.append(call)  # todo reputation ?
 
-        temp = SortbySrc(temp)
+        temp = SortbySrc(temp,elevList)
          #sortedBySrctemp = SortbySrc(temp)
         list_Of_areaslists.append(temp)
     for list in list_Of_areaslists :
@@ -88,26 +93,7 @@ def DivisionIntoSections(elevList, callList):
 
 
 
-""""
-def AssignCalls_FromEachSection_to_SlowElevators(list_Of_areaslistsFinal , elevList, callList):
-    sum = 0
-    for elev in elevList:
-        sum += elev._speed
 
-    for call in list_Of_areaslistsFinal :
-
-
-        currentelev = elevList[j]  # a slow elevator
-        for i in range(0, int(currentelev._speed * ratio)):  # number of calls for current elevator
-            if i < len(subList):
-                call = subList[i]
-                if not call.isDelete:
-                    call._elevIndex = currentelev._index
-                    call.isDelete = True
-                    callList_ans.append(call)
-
-    return callList
-"""
 
 
 def AssignRestCalls_to_AllElevators(finalCallList, elevList, callList):
