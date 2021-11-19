@@ -1,6 +1,6 @@
 import csv
 import math
-from ex1.Elevator import Elevator
+from Elevator import Elevator
 
 callList_ans = []
 
@@ -98,7 +98,7 @@ def AssignRestCalls_to_AllElevators(finalCallList, elevList, callList):
         sum += elevList[index]._speed
 
     ratio = (len(finalCallList)) / sum  # from the rest of calls
-    print(len(finalCallList))
+
 
     dex = 0
     for index in range(0, len(elevList)):  # from the rest of the elevator
@@ -125,4 +125,5 @@ def callsToCsv(arrayofCalls):
         newArrayofCalls.append(i.__dict__.values())
     with open(filename, 'w', newline="") as file:
         csvWriter = csv.writer(file)
-        csvWriter.writerows(newArrayo
+        csvWriter.writerows(newArrayofCalls)
+                            
